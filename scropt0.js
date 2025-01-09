@@ -267,9 +267,13 @@ function narisuvaiPobedaZaguba(zagPob){
             moiText = `Победихте! Имате ${zakacheni} топки!`;
             infoText = 'Очаквайте продължение... 😉';
         }
-        else{
+        else if(selectedLanguage==='no'){
             moiText = `Du vant! Du har ${zakacheni} kuler!`;
             infoText = 'Snart kommer det mer... 😉';
+        }
+        else{
+            moiText = `You won! You have ${zakacheni} balls!`;
+            infoText = 'Stay tuned for more... 😉';
         }
         pobedaSound.currentTime = 0;
         pobedaSound.play();
@@ -282,9 +286,13 @@ function narisuvaiPobedaZaguba(zagPob){
             moiText = `Сблъсък!!! Загубихте.😞 Имате ${zakacheni} топки`;
             infoText = 'Натиснете "ПАУЗА" или Рестарт за нова игра.';
         }
-        else{
+        else if(selectedLanguage==='no'){
             moiText = `Kollisjon! Du tapte.😞 Du har ${zakacheni} kuler`;
             infoText = "Trykk 'PAUSE' eller Restart for et nytt spill.";
+        }
+        else{
+            moiText = `Collision! You lost.😞 You have ${zakacheni} balls`;
+            infoText = "Press 'PAUSE' or Restart for a new game.";
         }
         
         katasSound.currentTime = 0;
@@ -304,8 +312,11 @@ function narisuvaiPobedaZaguba(zagPob){
         if(selectedLanguage === 'bg'){
             bonusText = `Браво! 100% успеваемост! ! !`;
         }
-        else{
+        else if(selectedLanguage==='no'){
             bonusText = `Bra jobbet! 100% suksessrate! ! !`;
+        }
+        else{
+            bonusText = `Bravo! 100% success rate! ! !`;
         }
         ctx.font = 'bold 1.3rem Arial';
         ctx.fillText(bonusText, canvas.width / 2 + 1, canvas.height / 2.4 + 52);
@@ -489,17 +500,6 @@ function drawGame() {
 
             prevX = attachedBall.x;
             prevY = attachedBall.y;
-            /* if(chocar === true && zagubaIzvikana === false){
-                zagubaIzvikana = true;
-                updateInfoBar();
-                narisuvaiPobedaZaguba("zaguba"); //chocar става true
-                //return;
-            };
-            if(brFin > 30){
-                brFin = 2;
-                narisuvaiPobedaZaguba("pobeda");
-                //return;
-            } */
         });
 
         if(chocar === true){
@@ -516,6 +516,24 @@ function drawGame() {
     if(btnStartPressed){
         requestAnimationFrame(drawGame);
     }
+}
+function dobaviAngl(){
+    myH1.textContent="Let's play 'Magnetic Balls'";
+    perviH3.childNodes[0].textContent ="Controls - with buttons ";
+    vtoriH3.childNodes[0].textContent = "Pause the game - with the '";
+    vtoriH3.childNodes[1].textContent ="PAUSE";
+    vtoriH3.childNodes[2].textContent ="' - button.";
+    lblLes.textContent = "Easy";
+    lblSred.textContent = "Medium";
+    lblTrud.textContent = "Hard";
+    button.textContent = "Start";
+    strHvanati = "caught";
+    strTopki ="balls";
+    strDalg = "length";
+    strOstavashti = "remaining";
+    updateInfoBar();
+    document.getElementById("restartButton").textContent = "Restart";
+    strIgrataENaPauza = "The game is paused! Press the 'Pause' key";
 }
 
 function dobaviNorsk(){
@@ -536,15 +554,13 @@ function dobaviNorsk(){
     document.getElementById("restartButton").textContent = "Start på nytt";
     strIgrataENaPauza = "Spillet er på pause! Trykk på 'Pause'-tasten";
 }
-if (selectedLanguage === 'bg') {
-    //console.log('Зарежда се български...');
-    // Добави български текст
+if (selectedLanguage === 'en') {
+    //console.log('Зарежда се английски...');
+    // Добави английски текст
+    dobaviAngl();
 } else if (selectedLanguage === 'no') {
     //console.log('Laster norsk...');
     dobaviNorsk();// Добави норвежки текст
-} else {
-    //console.log('Loading English...');
-    // Добави английски текст
 }
 
 createBalls();
